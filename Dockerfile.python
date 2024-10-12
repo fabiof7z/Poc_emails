@@ -1,0 +1,18 @@
+# Use uma imagem base do Python
+FROM python:3.11
+
+# Defina o diretório de trabalho
+WORKDIR /app
+
+# Copie os arquivos necessários para o contêiner
+COPY lista_emails.xlsx .
+COPY send_email.py .
+
+# Instale as dependências necessárias
+RUN pip install pandas openpyxl
+
+# Ajuste o código para usar o nome do contêiner Postfix como smtp_server
+# (Você pode alterar isso no seu script se preferir, ou mantê-lo como está e passar o nome do contêiner durante a execução)
+
+# Comando para executar o seu script
+CMD ["python", "send_email.py"]

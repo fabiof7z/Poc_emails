@@ -1,0 +1,22 @@
+# Postfix main configuration file
+
+# Define os domínios que podem enviar e-mails
+myhostname = localhost.localdomain
+mydomain = localdomain
+myorigin = /etc/mailname
+
+# Defina as redes de confiança
+mynetworks = 0.0.0.0/0
+
+# Permitir que o Postfix escute em todas as interfaces
+inet_interfaces = all
+inet_protocols = all
+
+# Diretório de correio
+home_mailbox = Maildir/
+
+# Habilita autenticação
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_auth_enable = yes
+smtpd_recipient_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination

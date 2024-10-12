@@ -1,0 +1,15 @@
+FROM ubuntu:latest
+
+RUN apt-get update && \
+    apt-get install -y postfix mailutils net-tools iproute2 && \
+    apt-get clean
+
+RUN echo "localdomain" > /etc/mailname    
+COPY ./postfix-main.cf /etc/postfix/main.cf
+
+# Adiciona um script de inicialização
+COPY ./init_postfix.sh /init_postfix.sh
+RUN chmod +x /init_postfix.sh
+
+# Inicie o serviço Postfix em primeiro plano
+CMD ["/init_postfix.sh"]
